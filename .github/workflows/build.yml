@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,10 +19,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run Gradle build (using Gradle Action, no wrapper required)
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assembleDebug
+      - name: Install Gradle manually
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gradle
+          gradle -v
+
+      - name: Run Gradle build (directly, no wrapper)
+        run: gradle assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
