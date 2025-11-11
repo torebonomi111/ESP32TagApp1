@@ -20,7 +20,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x ./gradlew || echo "gradlew no existe, continuando..."
+
 
       - name: Build with Gradle
         run: ./gradlew assembleDebug
